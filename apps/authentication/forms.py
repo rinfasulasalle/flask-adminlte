@@ -4,28 +4,28 @@ Copyright (c) 2019 - present AppSeed.us
 """
 
 from flask_wtf import FlaskForm
-from wtforms import StringField, PasswordField
-from wtforms.validators import Email, DataRequired
-
-# login and registration
-
+from wtforms import StringField, PasswordField, DateField
+from wtforms.validators import DataRequired, Email, Length
 
 class LoginForm(FlaskForm):
-    username = StringField('Username',
-                         id='username_login',
-                         validators=[DataRequired()])
-    password = PasswordField('Password',
-                             id='pwd_login',
-                             validators=[DataRequired()])
-
+    dni = StringField('DNI',
+                        id='dni_login',
+                        validators=[DataRequired(), Length(min=8, max=20)])
+    contrasena = PasswordField('Contraseña',
+                                id='pwd_login',
+                                validators=[DataRequired()])
 
 class CreateAccountForm(FlaskForm):
-    username = StringField('Username',
-                         id='username_create',
-                         validators=[DataRequired()])
-    email = StringField('Email',
-                      id='email_create',
-                      validators=[DataRequired(), Email()])
-    password = PasswordField('Password',
-                             id='pwd_create',
-                             validators=[DataRequired()])
+    dni = StringField('DNI',
+                        id='dni_create',
+                        validators=[DataRequired(), Length(min=8, max=20)])
+    nombres = StringField('Nombres',
+                            id='nombres_create',
+                            validators=[DataRequired(), Length(max=100)])
+    apellidos = StringField('Apellidos',
+                            id='apellidos_create',
+                            validators=[DataRequired(), Length(max=100)])
+    fecha_nacimiento = DateField('Fecha de Nacimiento',
+                                    id='fecha_nacimiento_create',
+                                    format='%Y-%m-%d',
+                                    validators=[DataRequired()])

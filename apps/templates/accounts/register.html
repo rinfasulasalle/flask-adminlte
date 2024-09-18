@@ -1,11 +1,11 @@
 {% extends "layouts/base-fullscreen.html" %}
 
-{% block title %} Register {% endblock %} 
+{% block title %} Register {% endblock %}
 
 <!-- Element injected in the BODY element -->
 {% block body_class %} register-page {% endblock body_class %}
 
-<!-- Specific Page CSS goes HERE  -->
+<!-- Specific Page CSS goes HERE -->
 {% block stylesheets %}
 
   <!-- Google Font: Source Sans Pro -->
@@ -24,20 +24,20 @@
   <div class="register-box">
 
     <div class="login-logo">
-        <a target="_blank" rel="noopener noreferrer" 
-           href="https://appseed.us/product/adminlte/flask/"><b>Admin</b>LTE Flask</a>
-    </div>    
+        <a target="_blank" rel="noopener noreferrer"
+            href="https://appseed.us/product/adminlte/flask/"><b>Admin</b>LTE Flask</a>
+    </div>
 
     <div class="card">
       <div class="card-body register-card-body">
         <p class="login-box-msg">
-            {% if msg %}
-                <span class="text-danger">{{ msg | safe }}</span>
-            {% else %}
+          {% if msg %}
+            <span class="text-danger">{{ msg | safe }}</span>
+          {% else %}
             <span>
-                Add your credentials
+              Add your details
             </span>
-            {% endif %}            
+          {% endif %}
         </p>
 
         <form role="form" method="post" action="">
@@ -45,36 +45,47 @@
           {{ form.hidden_tag() }}
 
           <div class="input-group mb-3">
-            {{ form.username(placeholder="Username", class="form-control") }}
+            {{ form.dni(placeholder="DNI", class="form-control") }}
+            <div class="input-group-append">
+              <div class="input-group-text">
+                <span class="fas fa-id-card"></span>
+              </div>
+            </div>
+          </div>
+
+          <div class="input-group mb-3">
+            {{ form.nombres(placeholder="Nombres", class="form-control") }}
             <div class="input-group-append">
               <div class="input-group-text">
                 <span class="fas fa-user"></span>
               </div>
             </div>
           </div>
+
           <div class="input-group mb-3">
-            {{ form.email(placeholder="Email", class="form-control") }}
+            {{ form.apellidos(placeholder="Apellidos", class="form-control") }}
             <div class="input-group-append">
               <div class="input-group-text">
-                <span class="fas fa-envelope"></span>
+                <span class="fas fa-user"></span>
               </div>
             </div>
           </div>
+
           <div class="input-group mb-3">
-            {{ form.password(placeholder="Password", class="form-control", type="password") }}
+            {{ form.fecha_nacimiento(placeholder="Fecha de Nacimiento (YYYY-MM-DD)", class="form-control") }}
             <div class="input-group-append">
               <div class="input-group-text">
-                <span class="fas fa-lock"></span>
+                <span class="fas fa-calendar"></span>
               </div>
             </div>
           </div>
-          
+
           <div class="row">
             <div class="col-8">
               <div class="icheck-primary">
                 <input type="checkbox" id="agreeTerms" name="terms" value="agree">
                 <label for="agreeTerms">
-                I agree to the <a href="#">terms</a>
+                  I agree to the <a href="#">terms</a>
                 </label>
               </div>
             </div>
@@ -88,23 +99,24 @@
 
         <br />
         <div class="text-center">
-            Have an account? <a href="{{ url_for('authentication_blueprint.login') }}" class="text-center">Login</a>
-            <br />
-            <br />
-            &copy; ColorLib 
-            <a target="_blank" rel="noopener noreferrer"
-               href="https://appseed.us/product/adminlte/flask/"><b>Admin</b>LTE</a> 
-            - coded by <a target="_blank" rel="noopener noreferrer" href="https://appseed.us">AppSeed</a>.
+          Have an account? <a href="{{ url_for('authentication_blueprint.login') }}" class="text-center">Login</a>
+          <br />
+          <br />
+          &copy; ColorLib
+          <a target="_blank" rel="noopener noreferrer"
+              href="https://appseed.us/product/adminlte/flask/"><b>Admin</b>LTE</a>
+          - coded by <a target="_blank" rel="noopener noreferrer" href="https://appseed.us">AppSeed</a>.
         </div>
 
       </div>
-      <!-- /.form-box -->
-    </div><!-- /.card -->
+      <!-- /.card-body -->
+    </div>
+    <!-- /.card -->
   </div>
 
 {% endblock content %}
 
-<!-- Specific Page JS goes HERE  -->
+<!-- Specific Page JS goes HERE -->
 {% block javascripts %}
 
   <!-- jQuery -->
@@ -113,4 +125,3 @@
   <script src="/static/assets/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
 
 {% endblock javascripts %}
-

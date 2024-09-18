@@ -1,11 +1,11 @@
 {% extends "layouts/base-fullscreen.html" %}
 
-{% block title %} Login {% endblock %} 
+{% block title %} Login {% endblock %}
 
 <!-- Element injected in the BODY element -->
 {% block body_class %} login-page {% endblock body_class %}
 
-<!-- Specific Page CSS goes HERE  -->
+<!-- Specific Page CSS goes HERE -->
 {% block stylesheets %}
 
   <!-- Google Font: Source Sans Pro -->
@@ -24,20 +24,20 @@
   <div class="login-box">
 
     <div class="login-logo">
-        <a target="_blank" rel="noopener noreferrer" 
+        <a target="_blank" rel="noopener noreferrer"
            href="https://appseed.us/product/adminlte/flask/"><b>Admin</b>LTE Flask</a>
     </div>
-
     <!-- /.login-logo -->
+
     <div class="card">
       <div class="card-body login-card-body">
 
-            <p class="login-box-msg">
-            {% if msg %}
-              <span class="text-danger">{{ msg | safe }}</span>
-            {% else %}
-                Add your credentials
-            {% endif %}
+        <p class="login-box-msg">
+          {% if msg %}
+            <span class="text-danger">{{ msg | safe }}</span>
+          {% else %}
+            Add your credentials
+          {% endif %}
         </p>
 
         <form method="post" action="">
@@ -45,21 +45,23 @@
           {{ form.hidden_tag() }}
 
           <div class="input-group mb-3">
-            {{ form.username(placeholder="Username", class="form-control") }}
+            {{ form.dni(placeholder="DNI", class="form-control") }}
             <div class="input-group-append">
               <div class="input-group-text">
-                <span class="fas fa-envelope"></span>
+                <span class="fas fa-id-card"></span>
               </div>
             </div>
           </div>
+
           <div class="input-group mb-3">
-            {{ form.password(placeholder="Password", class="form-control", type="password") }}
+            {{ form.contrasena(placeholder="Contraseña", class="form-control", type="password") }}
             <div class="input-group-append">
               <div class="input-group-text">
                 <span class="fas fa-lock"></span>
               </div>
             </div>
           </div>
+
           <div class="row">
             <div class="col-8">
               <div class="icheck-primary">
@@ -80,13 +82,13 @@
         <br /><br />
 
         <div class="text-center">
-            Not a member? <a href="{{ url_for('authentication_blueprint.register') }}" class="text-center">Register</a>
-            <br />
-            <br />
-            &copy; ColorLib 
-            <a target="_blank" rel="noopener noreferrer"
-               href="https://appseed.us/product/adminlte/flask/"><b>Admin</b>LTE</a> 
-            - coded by <a target="_blank" rel="noopener noreferrer" href="https://appseed.us">AppSeed</a>.
+          Not a member? <a href="{{ url_for('authentication_blueprint.register') }}" class="text-center">Register</a>
+          <br />
+          <br />
+          &copy; ColorLib
+          <a target="_blank" rel="noopener noreferrer"
+              href="https://appseed.us/product/adminlte/flask/"><b>Admin</b>LTE</a>
+          - coded by <a target="_blank" rel="noopener noreferrer" href="https://appseed.us">AppSeed</a>.
         </div>
 
       </div>
@@ -97,7 +99,7 @@
 
 {% endblock content %}
 
-<!-- Specific Page JS goes HERE  -->
+<!-- Specific Page JS goes HERE -->
 {% block javascripts %}
 
   <!-- jQuery -->

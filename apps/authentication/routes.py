@@ -9,13 +9,13 @@ from flask_login import (
     login_user,
     logout_user
 )
-
+from datetime import datetime
 from apps import db, login_manager
 from apps.authentication import blueprint
 from apps.authentication.forms import LoginForm, CreateAccountForm
-from apps.authentication.models import Users
+from apps.authentication.models import Usuario
 
-from apps.authentication.util import verify_pass
+from werkzeug.security import check_password_hash, generate_password_hash
 
 
 @blueprint.route('/')
@@ -28,70 +28,70 @@ def route_default():
 @blueprint.route('/login', methods=['GET', 'POST'])
 def login():
     login_form = LoginForm(request.form)
-    if 'login' in request.form:
+    if request.method == 'POST':
 
-        # read form data
-        username = request.form['username']
-        password = request.form['password']
+        # Read form data
+        dni = request.form['dni']
+        contrasena = request.form['contrasena']
 
         # Locate user
-        user = Users.query.filter_by(username=username).first()
+        user = Usuario.query.filter_by(dni=dni).first()
 
         # Check the password
-        if user and verify_pass(password, user.password):
+        if user and check_password_hash(user.contrasena, contrasena):
 
             login_user(user)
-            return redirect(url_for('authentication_blueprint.route_default'))
+            return redirect(url_for('home_blueprint.index'))
 
         # Something (user or pass) is not ok
         return render_template('accounts/login.html',
-                               msg='Wrong user or password',
-                               form=login_form)
+                                msg='Wrong DNI or password',
+                                form=login_form)
 
     if not current_user.is_authenticated:
         return render_template('accounts/login.html',
-                               form=login_form)
+                                    form=login_form)
     return redirect(url_for('home_blueprint.index'))
 
 
 @blueprint.route('/register', methods=['GET', 'POST'])
 def register():
     create_account_form = CreateAccountForm(request.form)
-    if 'register' in request.form:
 
-        username = request.form['username']
-        email = request.form['email']
+    if request.method == 'POST' and create_account_form.validate_on_submit():
+        dni = request.form['dni']
+        nombres = request.form['nombres']
+        apellidos = request.form['apellidos']
+        fecha_nacimiento_str = request.form['fecha_nacimiento']
 
-        # Check usename exists
-        user = Users.query.filter_by(username=username).first()
+        # Convertir la fecha de nacimiento de cadena a objeto date
+        try:
+            fecha_nacimiento = datetime.strptime(fecha_nacimiento_str, '%Y-%m-%d').date()
+        except ValueError:
+            return render_template('accounts/register.html',
+                                    msg='Fecha de nacimiento no válida',
+                                    success=False,
+                                    form=create_account_form)
+
+        # Check DNI exists
+        user = Usuario.query.filter_by(dni=dni).first()
         if user:
             return render_template('accounts/register.html',
-                                   msg='Username already registered',
-                                   success=False,
-                                   form=create_account_form)
+                                    msg='DNI already registered',
+                                    success=False,
+                                    form=create_account_form)
 
-        # Check email exists
-        user = Users.query.filter_by(email=email).first()
-        if user:
-            return render_template('accounts/register.html',
-                                   msg='Email already registered',
-                                   success=False,
-                                   form=create_account_form)
-
-        # else we can create the user
-        user = Users(**request.form)
+        # Crear el usuario
+        user = Usuario(dni=dni, nombres=nombres, apellidos=apellidos, fecha_nacimiento=fecha_nacimiento)
         db.session.add(user)
         db.session.commit()
 
         return render_template('accounts/register.html',
-                               msg='User created please <a href="/login">login</a>',
-                               success=True,
-                               form=create_account_form)
+                                msg='User created please <a href="/login">login</a>',
+                                success=True,
+                                form=create_account_form)
 
-    else:
-        return render_template('accounts/register.html', form=create_account_form)
-
-
+    return render_template('accounts/register.html', form=create_account_form)
 @blueprint.route('/logout')
 def logout():
     logout_user()
