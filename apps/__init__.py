@@ -50,11 +50,28 @@ def create_app(config):
     return app
 
 # Cargar los modelos y definir los métodos de carga de usuario
-from apps.authentication.models import Usuario
+from apps.authentication.models import Usuario,Administracion,Docente,Estudiante
 
 @login_manager.user_loader
-def load_user(user_id):
-    return Usuario.query.get(int(user_id))
+def load_user(dni):
+    # Cargar el usuario por su DNI
+    user = Usuario.query.get(dni)
+    
+    if user:
+        # Verificar a qué tipo de usuario pertenece (Administracion, Docente o Estudiante)
+        user.tipo_usuario = None
+
+        if Administracion.query.filter_by(dni_usuario=dni).first():
+            user.tipo_usuario = 'Administracion'
+        elif Docente.query.filter_by(dni_usuario=dni).first():
+            user.tipo_usuario = 'Docente'
+        elif Estudiante.query.filter_by(dni_usuario=dni).first():
+            user.tipo_usuario = 'Estudiante'
+        
+        # Devuelve el usuario con el tipo de usuario asociado
+        return user
+    
+    return None
 
 @login_manager.request_loader
 def load_user_from_request(request):

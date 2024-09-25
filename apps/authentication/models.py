@@ -1,5 +1,4 @@
 from datetime import datetime
-from datetime import date
 
 import pytz
 from flask_login import UserMixin
