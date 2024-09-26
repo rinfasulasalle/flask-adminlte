@@ -45,7 +45,7 @@ def login():
 
         # Something (user or pass) is not ok
         return render_template('accounts/login.html',
-                                msg='Wrong DNI or password',
+                                msg='DNI o contraseña incorrectos',
                                 form=login_form)
 
     if not current_user.is_authenticated:
@@ -77,7 +77,7 @@ def register():
         user = Usuario.query.filter_by(dni=dni).first()
         if user:
             return render_template('accounts/register.html',
-                                    msg='DNI already registered',
+                                    msg='DNI ya registrado',
                                     success=False,
                                     form=create_account_form)
 
@@ -87,7 +87,7 @@ def register():
         db.session.commit()
 
         return render_template('accounts/register.html',
-                                msg='User created please <a href="/login">login</a>',
+                                msg='Usuario creado, ingresar a <a href="/login">login</a>',
                                 success=True,
                                 form=create_account_form)
 
