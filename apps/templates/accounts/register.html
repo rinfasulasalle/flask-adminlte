@@ -1,11 +1,11 @@
 {% extends "layouts/base-fullscreen.html" %}
 
-{% block title %} Register {% endblock %}
+{% block title %} Registro {% endblock %}
 
-<!-- Element injected in the BODY element -->
+<!-- Elemento inyectado en el elemento BODY -->
 {% block body_class %} register-page {% endblock body_class %}
 
-<!-- Specific Page CSS goes HERE -->
+<!-- CSS específico para la página -->
 {% block stylesheets %}
 
   <!-- Google Font: Source Sans Pro -->
@@ -14,7 +14,7 @@
   <link rel="stylesheet" href="/static/assets/plugins/fontawesome-free/css/all.min.css">
   <!-- icheck bootstrap -->
   <link rel="stylesheet" href="/static/assets/plugins/icheck-bootstrap/icheck-bootstrap.min.css">
-  <!-- Theme style -->
+  <!-- Estilo del tema -->
   <link rel="stylesheet" href="/static/assets/css/adminlte.min.css">
 
 {% endblock stylesheets %}
@@ -24,8 +24,9 @@
   <div class="register-box">
 
     <div class="login-logo">
+        <img src="{{ url_for('static', filename='assets/img/logo.png') }}" alt="Logo" class="img-fluid" style="max-width: 100px;">
         <a target="_blank" rel="noopener noreferrer"
-            href="https://appseed.us/product/adminlte/flask/"><b>Admin</b>LTE Flask</a>
+            href="https://appseed.us/product/adminlte/flask/"><b>CodeGuard</b>GT</a>
     </div>
 
     <div class="card">
@@ -35,7 +36,7 @@
             <span class="text-danger">{{ msg | safe }}</span>
           {% else %}
             <span>
-              Add your details
+              Introduce tus datos
             </span>
           {% endif %}
         </p>
@@ -81,17 +82,17 @@
           </div>
 
           <div class="row">
-            <div class="col-8">
+            <div class="col-6">
               <div class="icheck-primary">
                 <input type="checkbox" id="agreeTerms" name="terms" value="agree">
                 <label for="agreeTerms">
-                  I agree to the <a href="#">terms</a>
+                  Aceptar <a href="#">términos</a>
                 </label>
               </div>
             </div>
             <!-- /.col -->
-            <div class="col-4">
-              <button type="submit" name="register" class="btn btn-primary btn-block">Register</button>
+            <div class="col-6">
+              <button type="submit" name="register" class="btn btn-primary btn-block">Registrarse</button>
             </div>
             <!-- /.col -->
           </div>
@@ -99,13 +100,7 @@
 
         <br />
         <div class="text-center">
-          Have an account? <a href="{{ url_for('authentication_blueprint.login') }}" class="text-center">Login</a>
-          <br />
-          <br />
-          &copy; ColorLib
-          <a target="_blank" rel="noopener noreferrer"
-              href="https://appseed.us/product/adminlte/flask/"><b>Admin</b>LTE</a>
-          - coded by <a target="_blank" rel="noopener noreferrer" href="https://appseed.us">AppSeed</a>.
+          ¿Ya tienes una cuenta? <a href="{{ url_for('authentication_blueprint.login') }}" class="text-center">Iniciar sesión</a>
         </div>
 
       </div>
@@ -116,7 +111,7 @@
 
 {% endblock content %}
 
-<!-- Specific Page JS goes HERE -->
+<!-- JS específico para la página -->
 {% block javascripts %}
 
   <!-- jQuery -->
